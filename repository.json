@@ -7,6 +7,14 @@
     "overview": "Download playlists, TV series, seasons, and audiobooks as a single ZIP file.",
     "owner": "FaithBranch",
     "versions": [
+      {
+        "changelog": "",
+        "checksum": "C611EF6C1408BCAED9C94860771D6F79",
+        "sourceUrl": "https://github.com/Faith-Branch-Software-LLC/Jellyfin-Plugin-BulkDownload/releases/download/v0.1.4/jellyfin-bulk-download_0.1.4.zip",
+        "targetAbi": "10.10.0.0",
+        "timestamp": "2026-04-28T03:20:08Z",
+        "version": "0.1.4.0"
+      }
     ]
   }
 ]
