@@ -9,6 +9,14 @@
     "versions": [
       {
         "changelog": "",
+        "checksum": "264372BA454E01A78ED7289911BE884B",
+        "sourceUrl": "https://github.com/Faith-Branch-Software-LLC/Jellyfin-Plugin-BulkDownload/releases/download/v0.1.9/jellyfin-bulk-download_0.1.9.zip",
+        "targetAbi": "10.10.0.0",
+        "timestamp": "2026-04-28T04:12:57Z",
+        "version": "0.1.9.0"
+      },
+      {
+        "changelog": "",
         "checksum": "719FE273FD40C527CD404EA032C92E40",
         "sourceUrl": "https://github.com/Faith-Branch-Software-LLC/Jellyfin-Plugin-BulkDownload/releases/download/v0.1.8/jellyfin-bulk-download_0.1.8.zip",
         "targetAbi": "10.10.0.0",
