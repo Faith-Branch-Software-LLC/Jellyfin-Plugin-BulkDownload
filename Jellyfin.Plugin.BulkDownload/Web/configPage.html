@@ -1,40 +1,55 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Bulk Download</title>
   <style>
-    #bulkdownload-page .bd-tab-content { display: none; }
-    #bulkdownload-page .bd-tab-content.active { display: block; }
-    #bulkdownload-page .bd-item-list {
-      list-style: none; padding: 0; margin: 0;
+    #bulkdownload-page .bd-tab-content {
+      display: none;
     }
+
+    #bulkdownload-page .bd-tab-content.active {
+      display: block;
+    }
+
+    #bulkdownload-page .bd-item-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
     #bulkdownload-page .bd-item-list li {
       padding: 0.6em 0;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
+
     #bulkdownload-page .bd-sub-list {
       list-style: none;
       padding-left: 1.5em;
       margin: 0.25em 0 0;
     }
+
     #bulkdownload-page .bd-status {
       margin-top: 0.75em;
       font-style: italic;
       opacity: 0.7;
     }
+
     #bulkdownload-page label {
       display: flex;
       align-items: center;
       gap: 0.5em;
       cursor: pointer;
     }
+
     #bulkdownload-page input[type="radio"] {
       width: 1.2em;
       height: 1.2em;
       flex-shrink: 0;
     }
+
     #bulkdownload-page .bd-expand-btn {
       font-size: 0.78em;
       padding: 0.2em 0.6em;
@@ -42,52 +57,61 @@
       opacity: 0.7;
       vertical-align: middle;
     }
+
     @media (max-width: 600px) {
-      #bulkdownload-page .bd-item-list li { padding: 0.9em 0; }
-      #bulkdownload-page .bd-expand-btn { display: block; margin: 0.3em 0 0; }
+      #bulkdownload-page .bd-item-list li {
+        padding: 0.9em 0;
+      }
+
+      #bulkdownload-page .bd-expand-btn {
+        display: block;
+        margin: 0.3em 0 0;
+      }
     }
   </style>
+  <script src="/web/configurationpage?name=BulkDownloadScript"></script>
 </head>
+
 <body>
-<div id="bulkdownload-page" data-role="page" class="page libraryPage">
-  <div data-role="content">
-    <div class="content-primary">
-      <h2 class="sectionTitle">Bulk Download</h2>
-      <p style="opacity:0.7;margin-top:0">Select a playlist, TV show/season, or audiobook and download everything as a single ZIP file.</p>
+  <div id="bulkdownload-page" data-role="page" class="page libraryPage">
+    <div data-role="content">
+      <div class="content-primary">
+        <h2 class="sectionTitle">Bulk Download</h2>
+        <p style="opacity:0.7;margin-top:0">Select a playlist, TV show/season, or audiobook and download everything as a
+          single ZIP file.</p>
 
-      <div class="tabs-backdrop">
-        <div class="tabs sectionTabs">
-          <button class="tab lnkMediaFolder bd-tab-btn" data-tab="playlists">Playlists</button>
-          <button class="tab lnkMediaFolder bd-tab-btn" data-tab="tvshows">TV Shows</button>
-          <button class="tab lnkMediaFolder bd-tab-btn" data-tab="audiobooks">Audiobooks</button>
+        <div class="tabs-backdrop">
+          <div class="tabs sectionTabs">
+            <button class="tab lnkMediaFolder bd-tab-btn" data-tab="playlists">Playlists</button>
+            <button class="tab lnkMediaFolder bd-tab-btn" data-tab="tvshows">TV Shows</button>
+            <button class="tab lnkMediaFolder bd-tab-btn" data-tab="audiobooks">Audiobooks</button>
+          </div>
         </div>
+
+        <section id="bd-tab-playlists" class="bd-tab-content" style="padding-top:1em">
+          <p class="bd-status" id="bd-status-playlists">Loading...</p>
+          <ul class="bd-item-list" id="bd-list-playlists"></ul>
+        </section>
+
+        <section id="bd-tab-tvshows" class="bd-tab-content" style="padding-top:1em">
+          <p class="bd-status" id="bd-status-tvshows">Loading...</p>
+          <ul class="bd-item-list" id="bd-list-tvshows"></ul>
+        </section>
+
+        <section id="bd-tab-audiobooks" class="bd-tab-content" style="padding-top:1em">
+          <p class="bd-status" id="bd-status-audiobooks">Loading...</p>
+          <ul class="bd-item-list" id="bd-list-audiobooks"></ul>
+        </section>
+
+        <div class="formDialogFooter" style="margin-top:1.5em">
+          <button class="raised button-submit block emby-button" id="bd-download-btn">
+            Download ZIP
+          </button>
+        </div>
+        <p class="bd-status" id="bd-download-status"></p>
       </div>
-
-      <section id="bd-tab-playlists" class="bd-tab-content" style="padding-top:1em">
-        <p class="bd-status" id="bd-status-playlists">Loading...</p>
-        <ul class="bd-item-list" id="bd-list-playlists"></ul>
-      </section>
-
-      <section id="bd-tab-tvshows" class="bd-tab-content" style="padding-top:1em">
-        <p class="bd-status" id="bd-status-tvshows">Loading...</p>
-        <ul class="bd-item-list" id="bd-list-tvshows"></ul>
-      </section>
-
-      <section id="bd-tab-audiobooks" class="bd-tab-content" style="padding-top:1em">
-        <p class="bd-status" id="bd-status-audiobooks">Loading...</p>
-        <ul class="bd-item-list" id="bd-list-audiobooks"></ul>
-      </section>
-
-      <div class="formDialogFooter" style="margin-top:1.5em">
-        <button class="raised button-submit block emby-button" id="bd-download-btn">
-          Download ZIP
-        </button>
-      </div>
-      <p class="bd-status" id="bd-download-status"></p>
     </div>
   </div>
-</div>
-
-<script src="/web/configurationpage?name=BulkDownloadScript"></script>
 </body>
+
 </html>

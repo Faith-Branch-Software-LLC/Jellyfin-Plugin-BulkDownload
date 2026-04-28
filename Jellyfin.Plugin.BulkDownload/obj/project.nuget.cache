@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ZOAyuGDyhUnEeoK3uAicgpLEbRFtA3+EOv7j+jRlWCNiGziarcIrpdIbf2GyYD06+zIH5wbhwVUOsuwxx2mg8g==",
+  "dgSpecHash": "hhTWkobEnz7JiFRFifBeDa0nKbblmxQweqt/bG1NjvFOoNXno6NWtOZbjyuAUxEzUCy0XqGIT5CE0dSjkSLkXA==",
   "success": true,
   "projectFilePath": "E:\\repos\\FaithBranch\\jellyfin-bulk-download\\Jellyfin.Plugin.BulkDownload\\Jellyfin.Plugin.BulkDownload.csproj",
   "expectedPackageFiles": [
