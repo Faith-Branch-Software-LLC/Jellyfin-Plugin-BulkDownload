@@ -36,10 +36,29 @@ jobs:
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
           VERSION="${VERSION#.}"
+          TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
           mkdir -p dist
-          cd Jellyfin.Plugin.BulkDownload/bin/Release/net8.0
-          zip -j "../../../../dist/jellyfin-bulk-download_${VERSION}.zip" \
-              Jellyfin.Plugin.BulkDownload.dll
+
+          # Generate meta.json — required by Jellyfin 10.9+ installer
+          cat > dist/meta.json <<EOF
+          {
+            "category": "General",
+            "changelog": "",
+            "description": "Download playlists, TV series, seasons, and audiobooks as a single ZIP file.",
+            "guid": "6c023404-f107-4b93-9253-148b088d4c9b",
+            "imageUrl": "",
+            "name": "Bulk Download",
+            "overview": "Download playlists, TV series, seasons, and audiobooks as a single ZIP file.",
+            "owner": "FaithBranch",
+            "targetAbi": "10.10.0.0",
+            "timestamp": "${TIMESTAMP}",
+            "version": "${VERSION}.0"
+          }
+          EOF
+
+          zip -j "dist/jellyfin-bulk-download_${VERSION}.zip" \
+              Jellyfin.Plugin.BulkDownload/bin/Release/net8.0/Jellyfin.Plugin.BulkDownload.dll \
+              dist/meta.json
           echo "PLUGIN_ZIP=dist/jellyfin-bulk-download_${VERSION}.zip" >> $GITHUB_ENV
 
       - name: Create GitHub Release
