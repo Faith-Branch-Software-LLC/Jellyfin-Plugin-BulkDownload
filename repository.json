@@ -1,1 +1,20 @@
-{}
+[
+  {
+    "category": "General",
+    "description": "Adds a browser-accessible UI page to the Jellyfin dashboard that lets any authenticated user select playlists, TV series, seasons, or audiobooks and download them as a single streaming ZIP archive. No temporary files are created on the server. Works on desktop and mobile browsers.\n",
+    "guid": "6c023404-f107-4b93-9253-148b088d4c9b",
+    "name": "Bulk Download",
+    "overview": "Download playlists, TV series, seasons, and audiobooks as a single ZIP file.",
+    "owner": "FaithBranch",
+    "versions": [
+      {
+        "changelog": "First Jellyfin Test\n\n**Full Changelog**: https://github.com/Faith-Branch-Software-LLC/Jellyfin-Plugin-BulkDownload/commits/v0.1.0",
+        "checksum": "",
+        "sourceUrl": "https://github.com/Faith-Branch-Software-LLC/Jellyfin-Plugin-BulkDownload/releases/download/v0.1.0/jellyfin-bulk-download_0.1.0.zip",
+        "targetAbi": "10.10.0.0",
+        "timestamp": "2026-04-28T02:31:09Z",
+        "version": "1.0.0.0"
+      }
+    ]
+  }
+]
