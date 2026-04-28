@@ -15,22 +15,6 @@
         "timestamp": "2026-04-28T02:51:01Z",
         "version": "0.1.2.0"
       },
-      {
-        "changelog": "Test 2\n\n**Full Changelog**: https://github.com/Faith-Branch-Software-LLC/Jellyfin-Plugin-BulkDownload/compare/v0.1.0...v0.1.1",
-        "checksum": "",
-        "sourceUrl": "https://github.com/Faith-Branch-Software-LLC/Jellyfin-Plugin-BulkDownload/releases/download/v0.1.1/jellyfin-bulk-download_0.1.1.zip",
-        "targetAbi": "10.10.0.0",
-        "timestamp": "2026-04-28T02:40:07Z",
-        "version": "1.0.0.0"
-      },
-      {
-        "changelog": "First Jellyfin Test\n\n**Full Changelog**: https://github.com/Faith-Branch-Software-LLC/Jellyfin-Plugin-BulkDownload/commits/v0.1.0",
-        "checksum": "",
-        "sourceUrl": "https://github.com/Faith-Branch-Software-LLC/Jellyfin-Plugin-BulkDownload/releases/download/v0.1.0/jellyfin-bulk-download_0.1.0.zip",
-        "targetAbi": "10.10.0.0",
-        "timestamp": "2026-04-28T02:31:09Z",
-        "version": "1.0.0.0"
-      }
     ]
   }
 ]
