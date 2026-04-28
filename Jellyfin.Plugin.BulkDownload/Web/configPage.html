@@ -124,8 +124,11 @@
   }
 
   function apiGet(path) {
+    console.log('[BD] apiGet', path, 'ApiClient:', !!window.ApiClient);
     if (!window.ApiClient) throw new Error('ApiClient not ready');
-    return window.ApiClient.getJSON(path);
+    var result = window.ApiClient.getJSON(path);
+    console.log('[BD] getJSON returned:', result);
+    return result;
   }
 
   function token() {
@@ -136,10 +139,12 @@
   // Playlists
   // -------------------------------------------------------------------
   async function loadPlaylists() {
+    console.log('[BD] loadPlaylists start');
     var statusEl = document.getElementById('bd-status-playlists');
     var listEl   = document.getElementById('bd-list-playlists');
     try {
       var data = await apiGet('/Users/' + userId() + '/Items?IncludeItemTypes=Playlist&Recursive=true&Fields=Id,Name');
+      console.log('[BD] playlists response:', data);
       statusEl.textContent = '';
       if (!data.Items || data.Items.length === 0) {
         statusEl.textContent = 'No playlists found.';
@@ -156,6 +161,7 @@
         listEl.appendChild(li);
       });
     } catch (e) {
+      console.error('[BD] loadPlaylists error:', e);
       statusEl.textContent = 'Failed to load playlists.';
     }
   }
@@ -297,11 +303,24 @@
   // -------------------------------------------------------------------
   // Init
   // -------------------------------------------------------------------
-  document.getElementById('bulkdownload-page').addEventListener('pageshow', function () {
+  console.log('[BD] script loaded, ApiClient at load time:', !!window.ApiClient);
+
+  var _page = document.getElementById('bulkdownload-page');
+  console.log('[BD] page element found:', !!_page);
+
+  if (_page) {
+    _page.addEventListener('pageshow', function () {
+      console.log('[BD] pageshow fired, ApiClient:', !!window.ApiClient);
+      loadPlaylists();
+      loadTvShows();
+      loadAudiobooks();
+    });
+  } else {
+    console.warn('[BD] page element not found — running init directly');
     loadPlaylists();
     loadTvShows();
     loadAudiobooks();
-  });
+  }
 }());
 </script>
 </body>

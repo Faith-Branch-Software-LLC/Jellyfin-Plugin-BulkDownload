@@ -1243,7 +1243,7 @@
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
-    "version": "0.1.4",
+    "version": "0.1.5",
     "restore": {
       "projectUniqueName": "E:\\repos\\FaithBranch\\jellyfin-bulk-download\\Jellyfin.Plugin.BulkDownload\\Jellyfin.Plugin.BulkDownload.csproj",
       "projectName": "Jellyfin.Plugin.BulkDownload",

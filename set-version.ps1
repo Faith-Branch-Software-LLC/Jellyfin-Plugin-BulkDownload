@@ -7,6 +7,7 @@ $yaml   = "build.yaml"
 
 (Get-Content $csproj) `
     -replace '<Version>[^<]+</Version>',         "<Version>$v</Version>" `
+    -replace '<AssemblyVersion>[^<]+</AssemblyVersion>', "<AssemblyVersion>$v</AssemblyVersion>" `
     -replace '<FileVersion>[^<]+</FileVersion>',  "<FileVersion>$v</FileVersion>" |
     Set-Content $csproj -Encoding utf8
 
