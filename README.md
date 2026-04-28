@@ -14,7 +14,7 @@ A Jellyfin plugin that lets you download an entire playlist, TV series, season, 
 2. Click the **⋮** menu → **Repositories**.
 3. Add a new repository:
    - **Repository name:** FaithBranch Plugins
-   - **Repository URL:** `https://faithbranch.github.io/jellyfin-bulk-download/repository.json`
+   - **Repository URL:** `https://faith-branch-software-llc.github.io/Jellyfin-Plugin-BulkDownload/repository.json`
 4. Save, then return to the Catalog and search for **Bulk Download**.
 5. Install and restart Jellyfin.
 
