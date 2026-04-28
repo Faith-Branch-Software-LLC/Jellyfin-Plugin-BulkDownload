@@ -5,7 +5,7 @@
   },
   "projects": {
     "E:\\repos\\FaithBranch\\jellyfin-bulk-download\\Jellyfin.Plugin.BulkDownload\\Jellyfin.Plugin.BulkDownload.csproj": {
-      "version": "1.0.0",
+      "version": "0.1.4",
       "restore": {
         "projectUniqueName": "E:\\repos\\FaithBranch\\jellyfin-bulk-download\\Jellyfin.Plugin.BulkDownload\\Jellyfin.Plugin.BulkDownload.csproj",
         "projectName": "Jellyfin.Plugin.BulkDownload",

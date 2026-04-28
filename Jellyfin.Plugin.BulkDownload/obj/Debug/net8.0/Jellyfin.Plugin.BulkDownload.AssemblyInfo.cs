@@ -12,8 +12,8 @@ using System.Reflection;
 
 [assembly: System.Reflection.AssemblyCompanyAttribute("Jellyfin.Plugin.BulkDownload")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0.0")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("0.1.4.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("0.1.4.0+e4158804ab66bfbd834d14c492a56f40088468cc")]
 [assembly: System.Reflection.AssemblyProductAttribute("Jellyfin.Plugin.BulkDownload")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Jellyfin.Plugin.BulkDownload")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
