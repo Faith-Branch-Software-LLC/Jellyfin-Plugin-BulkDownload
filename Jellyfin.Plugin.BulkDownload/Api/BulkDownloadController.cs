@@ -53,15 +53,27 @@ public class BulkDownloadController : ControllerBase
     [HttpGet("playlist/{id}/zip")]
     public Task GetPlaylistZip(Guid id, CancellationToken cancellationToken)
     {
-        var playlist = _libraryManager.GetItemById(id);
-        if (playlist is null)
-            return WriteNotFound();
+        try
+        {
+            var playlist = _libraryManager.GetItemById(id);
+            if (playlist is null)
+            {
+                _logger.LogWarning("BulkDownload: playlist {Id} not found", id);
+                return WriteNotFound();
+            }
 
-        var items = GetChildren(id)
-            .Where(i => !string.IsNullOrEmpty(i.Path))
-            .ToList();
+            var items = GetChildren(id)
+                .Where(i => !string.IsNullOrEmpty(i.Path))
+                .ToList();
 
-        return StreamZipAsync($"{Sanitize(playlist.Name)}.zip", items, flatNames: true, cancellationToken);
+            _logger.LogInformation("BulkDownload: playlist {Name} — {Count} items", playlist.Name, items.Count);
+            return StreamZipAsync($"{Sanitize(playlist.Name)}.zip", items, flatNames: true, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "BulkDownload: playlist {Id} failed", id);
+            throw;
+        }
     }
 
     /// <summary>Download a full TV series as a ZIP.</summary>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Jellyfin.Plugin.BulkDownload</name>
+    </assembly>
+    <members>
+        <member name="M:Jellyfin.Plugin.BulkDownload.Api.BulkDownloadController.GetZipByIds(System.String,System.Threading.CancellationToken)">
+            <summary>Download arbitrary items by ID as a ZIP.</summary>
+        </member>
+        <member name="M:Jellyfin.Plugin.BulkDownload.Api.BulkDownloadController.GetPlaylistZip(System.Guid,System.Threading.CancellationToken)">
+            <summary>Download a full playlist as a ZIP.</summary>
+        </member>
+        <member name="M:Jellyfin.Plugin.BulkDownload.Api.BulkDownloadController.GetSeriesZip(System.Guid,System.Threading.CancellationToken)">
+            <summary>Download a full TV series as a ZIP.</summary>
+        </member>
+        <member name="M:Jellyfin.Plugin.BulkDownload.Api.BulkDownloadController.GetSeasonZip(System.Guid,System.Threading.CancellationToken)">
+            <summary>Download a single TV season as a ZIP.</summary>
+        </member>
+        <member name="M:Jellyfin.Plugin.BulkDownload.Api.BulkDownloadController.GetAlbumZip(System.Guid,System.Threading.CancellationToken)">
+            <summary>Download a music album or audiobook as a ZIP.</summary>
+        </member>
+        <member name="P:Jellyfin.Plugin.BulkDownload.Configuration.PluginConfiguration.MaxZipBytes">
+            <summary>Max total uncompressed bytes per request. 0 = unlimited.</summary>
+        </member>
+        <member name="P:Jellyfin.Plugin.BulkDownload.Configuration.PluginConfiguration.CompressionLevel">
+            <summary>0 = NoCompression (recommended for video/audio), 1 = Fastest, 2 = Optimal.</summary>
+        </member>
+        <member name="P:Jellyfin.Plugin.BulkDownload.Configuration.PluginConfiguration.AllowAllUsers">
+            <summary>Allow non-admin users to use bulk download.</summary>
+        </member>
+    </members>
+</doc>
