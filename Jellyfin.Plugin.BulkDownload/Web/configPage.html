@@ -124,6 +124,7 @@
   }
 
   function apiGet(path) {
+    if (!window.ApiClient) throw new Error('ApiClient not ready');
     return window.ApiClient.getJSON(path);
   }
 
@@ -296,9 +297,11 @@
   // -------------------------------------------------------------------
   // Init
   // -------------------------------------------------------------------
-  loadPlaylists();
-  loadTvShows();
-  loadAudiobooks();
+  document.getElementById('bulkdownload-page').addEventListener('pageshow', function () {
+    loadPlaylists();
+    loadTvShows();
+    loadAudiobooks();
+  });
 }());
 </script>
 </body>
