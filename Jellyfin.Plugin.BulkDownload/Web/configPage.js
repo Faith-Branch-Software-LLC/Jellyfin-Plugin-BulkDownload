@@ -3,38 +3,28 @@
 
   var selected = { type: null, id: null };
 
-  // Tab switching
-  var tabBtns = document.querySelectorAll('.bd-tab-btn');
-  tabBtns.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      tabBtns.forEach(function (b) { b.classList.remove('is-active'); });
-      btn.classList.add('is-active');
-      document.querySelectorAll('.bd-tab-content').forEach(function (s) {
-        s.classList.remove('active');
-      });
-      document.getElementById('bd-tab-' + btn.dataset.tab).classList.add('active');
-      selected.type = null;
-      selected.id   = null;
-    });
-  });
-  if (tabBtns.length) tabBtns[0].click();
+  // ApiClient helpers — iframe context: ApiClient lives on parent window
+  function getApiClient() {
+    return window.ApiClient || (window.parent && window.parent.ApiClient) || null;
+  }
 
-  // ApiClient helpers
   function serverUrl() {
-    return window.ApiClient ? window.ApiClient.serverAddress() : '';
+    var c = getApiClient();
+    return c ? c.serverAddress() : '';
   }
 
   function userId() {
-    return window.ApiClient.getCurrentUserId();
+    return getApiClient().getCurrentUserId();
   }
 
   function apiGet(path) {
-    if (!window.ApiClient) throw new Error('ApiClient not ready');
-    return window.ApiClient.getJSON(path);
+    var c = getApiClient();
+    if (!c) throw new Error('ApiClient not ready');
+    return c.getJSON(path);
   }
 
   function token() {
-    return window.ApiClient.accessToken();
+    return getApiClient().accessToken();
   }
 
   // Playlists
@@ -121,45 +111,66 @@
   }
 
   // Download
-  document.getElementById('bd-download-btn').addEventListener('click', function () {
-    var statusEl = document.getElementById('bd-download-status');
-    if (!selected.type || !selected.id) { statusEl.textContent = 'Please select an item first.'; return; }
+  function wireDownloadBtn() {
+    var btn = document.getElementById('bd-download-btn');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var statusEl = document.getElementById('bd-download-status');
+      if (!selected.type || !selected.id) { statusEl.textContent = 'Please select an item first.'; return; }
 
-    var base = serverUrl();
-    var url;
-    if (selected.type === 'playlist')  url = base + '/BulkDownload/playlist/' + selected.id + '/zip';
-    else if (selected.type === 'series') url = base + '/BulkDownload/series/'  + selected.id + '/zip';
-    else if (selected.type === 'season') url = base + '/BulkDownload/season/'  + selected.id + '/zip';
-    else if (selected.type === 'album')  url = base + '/BulkDownload/album/'   + selected.id + '/zip';
+      var base = serverUrl();
+      var url;
+      if (selected.type === 'playlist')    url = base + '/BulkDownload/playlist/' + selected.id + '/zip';
+      else if (selected.type === 'series') url = base + '/BulkDownload/series/'   + selected.id + '/zip';
+      else if (selected.type === 'season') url = base + '/BulkDownload/season/'   + selected.id + '/zip';
+      else if (selected.type === 'album')  url = base + '/BulkDownload/album/'    + selected.id + '/zip';
 
-    url += '?ApiKey=' + encodeURIComponent(token());
+      url += '?ApiKey=' + encodeURIComponent(token());
 
-    var a = document.createElement('a');
-    a.href = url;
-    a.style.display = 'none';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+      var a = document.createElement('a');
+      a.href = url;
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
 
-    statusEl.textContent = "Download started — check your browser's download bar.";
-  });
+      statusEl.textContent = "Download started — check your browser's download bar.";
+    });
+  }
+
+  // Tab switching
+  function wireTabs() {
+    var tabBtns = document.querySelectorAll('.bd-tab-btn');
+    tabBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        tabBtns.forEach(function (b) { b.classList.remove('is-active'); });
+        btn.classList.add('is-active');
+        document.querySelectorAll('.bd-tab-content').forEach(function (s) { s.classList.remove('active'); });
+        document.getElementById('bd-tab-' + btn.dataset.tab).classList.add('active');
+        selected.type = null;
+        selected.id   = null;
+      });
+    });
+    if (tabBtns.length) tabBtns[0].click();
+  }
 
   // Utility
   function escHtml(str) {
     return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
-  // Init
-  var _page = document.getElementById('bulkdownload-page');
-  if (_page) {
-    _page.addEventListener('pageshow', function () {
-      loadPlaylists();
-      loadTvShows();
-      loadAudiobooks();
-    });
-  } else {
+  // Init — wait for DOM ready since script loads from <head>
+  function init() {
+    wireTabs();
+    wireDownloadBtn();
     loadPlaylists();
     loadTvShows();
     loadAudiobooks();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
 }());
