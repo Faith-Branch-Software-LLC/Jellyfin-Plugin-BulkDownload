@@ -1,0 +1,15 @@
+E:\repos\FaithBranch\jellyfin-bulk-download\Jellyfin.Plugin.BulkDownload\bin\Release\net9.0\Jellyfin.Plugin.BulkDownload.deps.json
+E:\repos\FaithBranch\jellyfin-bulk-download\Jellyfin.Plugin.BulkDownload\bin\Release\net9.0\Jellyfin.Plugin.BulkDownload.dll
+E:\repos\FaithBranch\jellyfin-bulk-download\Jellyfin.Plugin.BulkDownload\bin\Release\net9.0\Jellyfin.Plugin.BulkDownload.pdb
+E:\repos\FaithBranch\jellyfin-bulk-download\Jellyfin.Plugin.BulkDownload\bin\Release\net9.0\Jellyfin.Plugin.BulkDownload.xml
+E:\repos\FaithBranch\jellyfin-bulk-download\Jellyfin.Plugin.BulkDownload\obj\Release\net9.0\Jellyfin.Plugin.BulkDownload.csproj.AssemblyReference.cache
+E:\repos\FaithBranch\jellyfin-bulk-download\Jellyfin.Plugin.BulkDownload\obj\Release\net9.0\Jellyfin.Plugin.BulkDownload.GeneratedMSBuildEditorConfig.editorconfig
+E:\repos\FaithBranch\jellyfin-bulk-download\Jellyfin.Plugin.BulkDownload\obj\Release\net9.0\Jellyfin.Plugin.BulkDownload.AssemblyInfoInputs.cache
+E:\repos\FaithBranch\jellyfin-bulk-download\Jellyfin.Plugin.BulkDownload\obj\Release\net9.0\Jellyfin.Plugin.BulkDownload.AssemblyInfo.cs
+E:\repos\FaithBranch\jellyfin-bulk-download\Jellyfin.Plugin.BulkDownload\obj\Release\net9.0\Jellyfin.Plugin.BulkDownload.csproj.CoreCompileInputs.cache
+E:\repos\FaithBranch\jellyfin-bulk-download\Jellyfin.Plugin.BulkDownload\obj\Release\net9.0\Jellyfin.Plugin.BulkDownload.sourcelink.json
+E:\repos\FaithBranch\jellyfin-bulk-download\Jellyfin.Plugin.BulkDownload\obj\Release\net9.0\Jellyfin.Plugin.BulkDownload.dll
+E:\repos\FaithBranch\jellyfin-bulk-download\Jellyfin.Plugin.BulkDownload\obj\Release\net9.0\refint\Jellyfin.Plugin.BulkDownload.dll
+E:\repos\FaithBranch\jellyfin-bulk-download\Jellyfin.Plugin.BulkDownload\obj\Release\net9.0\Jellyfin.Plugin.BulkDownload.xml
+E:\repos\FaithBranch\jellyfin-bulk-download\Jellyfin.Plugin.BulkDownload\obj\Release\net9.0\Jellyfin.Plugin.BulkDownload.pdb
+E:\repos\FaithBranch\jellyfin-bulk-download\Jellyfin.Plugin.BulkDownload\obj\Release\net9.0\ref\Jellyfin.Plugin.BulkDownload.dll

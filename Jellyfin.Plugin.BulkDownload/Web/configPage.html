@@ -62,55 +62,55 @@
     </div>
 
     <script type="text/javascript">
-      var BulkDownload = {
-        selected: { type: null, id: null }
-      };
+      var bdSelected = { type: null, id: null, name: null };
 
-      document.querySelector('#bulkdownload-page').addEventListener('pageshow', function () {
-
-        var selected = BulkDownload.selected;
-        selected.type = null;
-        selected.id   = null;
-
-        // Tabs
-        var tabBtns = document.querySelectorAll('.bd-tab-btn');
-        tabBtns.forEach(function (btn) {
-          btn.addEventListener('click', function () {
-            tabBtns.forEach(function (b) { b.classList.remove('is-active'); });
-            btn.classList.add('is-active');
-            document.querySelectorAll('.bd-tab-content').forEach(function (s) { s.classList.remove('active'); });
-            document.getElementById('bd-tab-' + btn.dataset.tab).classList.add('active');
-            selected.type = null;
-            selected.id   = null;
-          });
+      var bdTabBtns = document.querySelectorAll('.bd-tab-btn');
+      bdTabBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          bdTabBtns.forEach(function (b) { b.classList.remove('is-active'); });
+          btn.classList.add('is-active');
+          document.querySelectorAll('.bd-tab-content').forEach(function (s) { s.classList.remove('active'); });
+          document.getElementById('bd-tab-' + btn.dataset.tab).classList.add('active');
+          bdSelected.type = null; bdSelected.id = null; bdSelected.name = null;
         });
-        if (tabBtns.length) tabBtns[0].click();
+      });
+      if (bdTabBtns.length) bdTabBtns[0].click();
 
-        // Load data
+      function bdLoad() {
+        bdSelected.type = null; bdSelected.id = null; bdSelected.name = null;
         loadPlaylists();
         loadTvShows();
         loadAudiobooks();
-      });
+      }
+
+      document.querySelector('#bulkdownload-page').addEventListener('pageshow', bdLoad);
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', bdLoad);
+      } else {
+        bdLoad();
+      }
 
       document.querySelector('#bd-download-btn').addEventListener('click', function () {
-        var selected  = BulkDownload.selected;
-        var statusEl  = document.getElementById('bd-download-status');
-        if (!selected.type || !selected.id) { statusEl.textContent = 'Please select an item first.'; return; }
+        var statusEl = document.getElementById('bd-download-status');
+        if (!bdSelected.type || !bdSelected.id) { statusEl.textContent = 'Please select an item first.'; return; }
 
         var base = ApiClient.serverAddress();
         var url;
-        if (selected.type === 'playlist')    url = base + '/BulkDownload/playlist/' + selected.id + '/zip';
-        else if (selected.type === 'series') url = base + '/BulkDownload/series/'   + selected.id + '/zip';
-        else if (selected.type === 'season') url = base + '/BulkDownload/season/'   + selected.id + '/zip';
-        else if (selected.type === 'album')  url = base + '/BulkDownload/album/'    + selected.id + '/zip';
+        if (bdSelected.type === 'playlist')    url = base + '/BulkDownload/playlist/' + bdSelected.id + '/zip';
+        else if (bdSelected.type === 'series') url = base + '/BulkDownload/series/'   + bdSelected.id + '/zip';
+        else if (bdSelected.type === 'season') url = base + '/BulkDownload/season/'   + bdSelected.id + '/zip';
+        else if (bdSelected.type === 'album')  url = base + '/BulkDownload/album/'    + bdSelected.id + '/zip';
 
         url += '?ApiKey=' + encodeURIComponent(ApiClient.accessToken());
 
         var a = document.createElement('a');
-        a.href = url; a.style.display = 'none';
-        document.body.appendChild(a); a.click(); document.body.removeChild(a);
-
-        statusEl.textContent = "Download started — check your browser's download bar.";
+        a.href = url;
+        a.download = (bdSelected.name || 'bulk-download') + '.zip';
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        statusEl.textContent = 'Download started.';
       });
 
       async function loadPlaylists() {
@@ -124,7 +124,7 @@
           data.Items.forEach(function (item) {
             var li = document.createElement('li');
             li.innerHTML = '<label><input type="radio" name="bd-sel" value="' + item.Id + '" /> ' + escHtml(item.Name) + '</label>';
-            li.querySelector('input').addEventListener('change', function () { BulkDownload.selected.type = 'playlist'; BulkDownload.selected.id = item.Id; });
+            li.querySelector('input').addEventListener('change', function () { bdSelected.type = 'playlist'; bdSelected.id = item.Id; bdSelected.name = item.Name; });
             listEl.appendChild(li);
           });
         } catch (e) { statusEl.textContent = 'Failed to load playlists.'; }
@@ -144,7 +144,7 @@
               '<label><input type="radio" name="bd-sel" value="' + series.Id + '" class="bd-series-radio" /> ' + escHtml(series.Name) + '</label>' +
               '<button class="emby-button bd-expand-btn" data-sid="' + series.Id + '">&#9660; Seasons</button>' +
               '<ul class="bd-sub-list" id="bd-seasons-' + series.Id + '" style="display:none"></ul>';
-            li.querySelector('.bd-series-radio').addEventListener('change', function () { BulkDownload.selected.type = 'series'; BulkDownload.selected.id = series.Id; });
+            li.querySelector('.bd-series-radio').addEventListener('change', function () { bdSelected.type = 'series'; bdSelected.id = series.Id; bdSelected.name = series.Name; });
             li.querySelector('.bd-expand-btn').addEventListener('click', async function () {
               var sl = document.getElementById('bd-seasons-' + series.Id);
               if (!sl.innerHTML) await loadSeasons(series.Id, sl);
@@ -162,7 +162,7 @@
           data.Items.forEach(function (season) {
             var li = document.createElement('li');
             li.innerHTML = '<label><input type="radio" name="bd-sel" value="' + season.Id + '" /> ' + escHtml(season.Name) + '</label>';
-            li.querySelector('input').addEventListener('change', function () { BulkDownload.selected.type = 'season'; BulkDownload.selected.id = season.Id; });
+            li.querySelector('input').addEventListener('change', function () { bdSelected.type = 'season'; bdSelected.id = season.Id; bdSelected.name = season.Name; });
             containerEl.appendChild(li);
           });
         } catch (e) { containerEl.innerHTML = '<li>Failed to load seasons.</li>'; }
@@ -179,7 +179,7 @@
           data.Items.forEach(function (item) {
             var li = document.createElement('li');
             li.innerHTML = '<label><input type="radio" name="bd-sel" value="' + item.Id + '" /> ' + escHtml(item.Name) + '</label>';
-            li.querySelector('input').addEventListener('change', function () { BulkDownload.selected.type = 'album'; BulkDownload.selected.id = item.Id; });
+            li.querySelector('input').addEventListener('change', function () { bdSelected.type = 'album'; bdSelected.id = item.Id; bdSelected.name = item.Name; });
             listEl.appendChild(li);
           });
         } catch (e) { statusEl.textContent = 'Failed to load audiobooks.'; }

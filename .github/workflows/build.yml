@@ -15,10 +15,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup .NET 8
+      - name: Setup .NET 9
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: '9.0.x'
 
       - name: Restore
         run: dotnet restore Jellyfin.Plugin.BulkDownload.sln
@@ -50,14 +50,14 @@ jobs:
             "name": "Bulk Download",
             "overview": "Download playlists, TV series, seasons, and audiobooks as a single ZIP file.",
             "owner": "FaithBranch",
-            "targetAbi": "10.10.0.0",
+            "targetAbi": "10.11.0.0",
             "timestamp": "${TIMESTAMP}",
             "version": "${VERSION}.0"
           }
           EOF
 
           zip -j "dist/jellyfin-bulk-download_${VERSION}.zip" \
-              Jellyfin.Plugin.BulkDownload/bin/Release/net8.0/Jellyfin.Plugin.BulkDownload.dll \
+              Jellyfin.Plugin.BulkDownload/bin/Release/net9.0/Jellyfin.Plugin.BulkDownload.dll \
               dist/meta.json
           echo "PLUGIN_ZIP=dist/jellyfin-bulk-download_${VERSION}.zip" >> $GITHUB_ENV
 
@@ -95,7 +95,7 @@ jobs:
               "changelog": "",
               "checksum": checksum,
               "sourceUrl": source_url,
-              "targetAbi": "10.10.0.0",
+              "targetAbi": "10.11.0.0",
               "timestamp": timestamp,
               "version": version,
           }

@@ -62,7 +62,7 @@ public class BulkDownloadController : ControllerBase
                 return WriteNotFound();
             }
 
-            var items = GetChildren(id)
+            var items = GetLinkedChildren(playlist)
                 .Where(i => !string.IsNullOrEmpty(i.Path))
                 .ToList();
 
@@ -129,9 +129,13 @@ public class BulkDownloadController : ControllerBase
         if (album is null)
             return WriteNotFound();
 
-        var items = GetChildren(id)
+        var items = GetLinkedChildren(album)
             .Where(i => !string.IsNullOrEmpty(i.Path))
             .ToList();
+
+        // fall back to regular children (e.g. MusicAlbum tracks stored as direct children)
+        if (items.Count == 0)
+            items = GetChildren(id).Where(i => !string.IsNullOrEmpty(i.Path)).ToList();
 
         return StreamZipAsync($"{Sanitize(album.Name)}.zip", items, flatNames: true, cancellationToken);
     }
@@ -166,6 +170,11 @@ public class BulkDownloadController : ControllerBase
 
         // Disable buffering so bytes flow to the client incrementally.
         HttpContext.Features.Get<IHttpResponseBodyFeature>()?.DisableBuffering();
+
+        // ZipArchive.Dispose() writes the central directory synchronously; allow it.
+        var bodyControl = HttpContext.Features.Get<IHttpBodyControlFeature>();
+        if (bodyControl != null)
+            bodyControl.AllowSynchronousIO = true;
 
         var compressionLevel = config.CompressionLevel switch
         {
@@ -229,6 +238,17 @@ public class BulkDownloadController : ControllerBase
 
     private static string Sanitize(string name) =>
         string.Concat(name.Split(Path.GetInvalidFileNameChars()));
+
+    private IEnumerable<BaseItem> GetLinkedChildren(BaseItem parent)
+    {
+        if (parent is not Folder folder)
+            return Enumerable.Empty<BaseItem>();
+
+        return folder.LinkedChildren
+            .Select(lc => lc.ItemId.HasValue ? _libraryManager.GetItemById(lc.ItemId.Value) : null)
+            .Where(item => item is not null)
+            .Select(item => item!);
+    }
 
     private IEnumerable<BaseItem> GetChildren(Guid parentId) =>
         _libraryManager.GetItemList(new InternalItemsQuery { ParentId = parentId });
