@@ -1,7 +1,7 @@
 ---
 name: "Bulk Download"
 guid: "6c023404-f107-4b93-9253-148b088d4c9b"
-version: "1.0.0.0"
+version: "1.1.2.0"
 targetAbi: "10.10.0.0"
 framework: "net8.0"
 overview: "Download playlists, TV series, seasons, and audiobooks as a single ZIP file."
