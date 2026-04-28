@@ -31,5 +31,10 @@ public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
             Name = "BulkDownload",
             EmbeddedResourcePath = $"{GetType().Namespace}.Web.configPage.html"
         };
+        yield return new PluginPageInfo
+        {
+            Name = "BulkDownloadScript",
+            EmbeddedResourcePath = $"{GetType().Namespace}.Web.configPage.js"
+        };
     }
 }
